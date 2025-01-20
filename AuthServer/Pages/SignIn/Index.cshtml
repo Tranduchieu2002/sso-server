@@ -1,0 +1,168 @@
+@page
+
+@model AuthServer.Pages.SignIn.SignInModel;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .signin-container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .signin-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .signin-button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="signin-container">
+    <h2>Sign In</h2>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="error-message">Invalid login attempt. Please try again.</div>
+    }
+    <form method="post">
+        @Html.AntiForgeryToken() <!-- CSRF token -->
+        <div>
+            <label for="username">Username or Email</label>
+            <input
+                type="text"
+                id="username"
+                name="LoginDetails.Username"
+                placeholder="Enter your username or email"
+                required
+                autocomplete="username"/>
+        </div>
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+        <div>
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="LoginDetails.Password"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"/>
+        </div>
+
+        <div>
+            <button type="submit" class="signin-button">Sign In</button>
+        </div>
+    </form>
+
+    <div id="responseMessage" style="display: none;"></div>
+
+    <div class="footer">
+        <p>Don't have an account? <a href="/SignUp">Sign up here</a></p>
+        <p><a href="/ForgotPassword">Forgot your password?</a></p>
+    </div>
+</div>
+</body>
+
+@* <script> *@
+@*     document.getElementById('signinForm').addEventListener('submit', async (event) => { *@
+@*         event.preventDefault(); *@
+@* *@
+@*         const form = event.target; *@
+@*         const formData = { *@
+@*             Username: form.username.value, *@
+@*             Password: form.password.value, *@
+@*         }; *@
+@* *@
+@*         const responseMessage = document.getElementById('responseMessage'); *@
+@*         responseMessage.style.display = 'none'; *@
+@* *@
+@*         try { *@
+@*             const response = await fetch('api/v1/signin', { *@
+@*                 method: 'POST', *@
+@*                 body: JSON.stringify(formData), // Send data as JSON *@
+@*                 headers: { *@
+@*                     'Content-Type': 'application/json', // Use JSON content type *@
+@*                 }, *@
+@*             }); *@
+@* *@
+@*             const result = await response.json(); *@
+@* *@
+@*             if (response.ok) { *@
+@*                 responseMessage.style.color = 'green'; *@
+@*                 responseMessage.textContent = result.message || 'Sign in successful!'; *@
+@*                 window.location = response?.redirectUrl ?? "/"; *@
+@*             } else { *@
+@*                 responseMessage.style.color = 'red'; *@
+@*                 responseMessage.textContent = result.error || 'Sign in failed!'; *@
+@*             } *@
+@*         } catch (error) { *@
+@*             responseMessage.style.color = 'red'; *@
+@*             responseMessage.textContent = 'An error occurred. Please try again.'; *@
+@*         } *@
+@* *@
+@*         responseMessage.style.display = 'block'; *@
+@*     }); *@
+@* </script> *@
+</html>
+

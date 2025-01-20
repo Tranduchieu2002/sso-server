@@ -1,0 +1,12 @@
+﻿services:
+  minimal-webserver:
+    image: minimal-webserver
+    build:
+      context: .
+      dockerfile: minimal-webserver/Dockerfile
+
+  sso-server:
+    image: sso-server
+    build:
+      context: .
+      dockerfile: sso-server/Dockerfile
