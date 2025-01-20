@@ -1,0 +1,78 @@
+@page
+
+@{
+    ViewData["Title"] = "Home page";
+}
+<button class="btn btn-primary" id="get-cars">Get Cars</button>
+<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#car-modal">New Car</button>
+<ul class="results mt-3"></ul>
+<partial name="_CarModal" model="new Car()"/>
+
+
+@section scripts{
+    <script>
+        const list = document.querySelector('ul.results');
+        const getAll = document.getElementById('get-cars');
+        const save = document.getElementById('save-car');
+
+        getAll.addEventListener('click', () => {
+            showCars();
+        });
+        save.addEventListener('click', () => {
+            saveCar();
+        });
+
+        const showCars = () => {
+            list.innerHTML = '';
+            fetch("/api/cars")
+                .then(response => response.json())
+                .then(cars => {
+                    for (let i = 0; i < cars.length; i++) {
+                        let item = document.createElement('li');
+                        item.innerText = `${cars[i].id} ${cars[i].make} ${cars[i].model}, ${cars[i].year} £${cars[i].price}`;
+                        item.classList.add('edit-car');
+                        item.dataset.id = cars[i].id;
+                        item.dataset.bsToggle = 'modal';
+                        item.dataset.bsTarget = '#car-modal';
+                        item.addEventListener('click', (event) => {
+                            getCar(event.target.dataset.id);
+                        });
+                        list.appendChild(item);
+                    }
+                });
+        }
+
+        const getCar = (id) => {
+            fetch(`/api/car/${id}`)
+                .then(response => response.json())
+                .then(car => {
+                    document.getElementById('Id').value = car.id;
+                    document.getElementById('Model').value = car.model;
+                    document.getElementById('Make').value = car.make;
+                    document.getElementById('Year').value = car.year;
+                    document.getElementById('Doors').value = car.doors;
+                    document.getElementById('Color').value = car.color;
+                    document.getElementById('Price').value = car.price;
+                });
+        }
+
+        const saveCar = () => {
+            const model = {
+                id: document.getElementById('Id').value,
+                model: document.getElementById('Model').value,
+                make: document.getElementById('Make').value,
+                year: document.getElementById('Year').value,
+                doors: document.getElementById('Doors').value,
+                color: document.getElementById('Color').value,
+                price: document.getElementById('Price').value,
+            };
+            fetch('/api/save', {
+                method: model.id > 0 ? 'put' : 'post',
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(model)
+            });
+        }
+    </script>
+}

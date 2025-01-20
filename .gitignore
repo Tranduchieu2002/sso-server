@@ -1,0 +1,102 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+logs/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+build/
+bld/
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Rider
+.idea/
+*.iml
+
+# Output directories
+bin
+obj
+[Bb]uild/
+[Bb]uild[Aa]rtifacts/
+
+# ASP.NET Scaffolding
+.scaffolding/
+
+# Packages
+*.nupkg
+*.snupkg
+*.nuspec
+*.psmdcp
+
+# Dependencies
+packages/
+*.dll
+*.exe
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.opencover.xml
+*.coveragexml
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+*.swp
+*.bak
+
+# Cache
+*.cache
+*.db
+
+# Entity Framework Migrations
+Migrations/
+
+# Local configurations
+appsettings.Development.json
+appsettings.*.local.json
+
+# Web-related files
+node_modules/
+yarn.lock
+package-lock.json
+
+# IDE-specific files
+*.csproj.user
+project.lock.json
+
+# Deployment files
+.publish/
+*.publishsettings
+*.pubxml
+*.azurePubxml
+
+# Dotnet-specific
+project.lock.json
+global.json
+artifacts/
+
+# NuGet
+.nuget/
+project.assets.json
+
+# Rider and JetBrains
+.idea_modules/
+out/
+*.sln.iml

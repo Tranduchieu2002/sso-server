@@ -1,0 +1,6 @@
+@minimal_webserver_HostAddress = http://localhost:5040
+
+GET {{minimal_webserver_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
