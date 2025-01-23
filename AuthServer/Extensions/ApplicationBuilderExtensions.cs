@@ -1,3 +1,5 @@
+using AuthServer.Errors;
+
 namespace AuthServer.Extensions;
 
 public static class ApplicationBuilderExtensions
@@ -15,6 +17,7 @@ public static class ApplicationBuilderExtensions
         }
         app.UseAuthentication(); // Enable authentication
         app.UseAntiforgery();
-        app.UseAuthorization(); // Enable authorization
+        app.UseAuthorization();
+        app.UseMiddleware<ErrorHandlingMiddleware>();
     }
 }
